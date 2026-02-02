@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine?</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+    body{
+        margin:0;
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background:#f6c1cf;
+        font-family:'Inter',sans-serif;
+        overflow:hidden;
+    }
+
+    /* Background image after YES */
+   #bg-photo{
+    position: fixed;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 1s ease;
+    z-index: 0;
+    pointer-events: none;
+}
+
+
+
+    .card{
+        background:#fff;
+        width:90%;
+        max-width:420px;
+        padding:40px 30px;
+        border-radius:22px;
+        text-align:center;
+        box-shadow:0 20px 40px rgba(0,0,0,0.2);
+        z-index:1;
+    }
+
+    .top-img{
+        width:90px;
+        margin-bottom:15px;
+    }
+
+    h1{
+        font-size:22px;
+        font-weight:600;
+        color:#222;
+        margin-bottom:35px;
+    }
+
+    .buttons{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        gap:30px;
+        position:relative;
+    }
+
+    #yes{
+        background:#ec4c7a;
+        color:#fff;
+        padding:14px 38px;
+        font-size:16px;
+        border:none;
+        border-radius:999px;
+        cursor:pointer;
+        font-weight:600;
+        box-shadow:0 8px 20px rgba(236,76,122,0.4);
+        transition:transform 0.3s ease;
+    }
+
+    #no{
+        background:none;
+        border:none;
+        color:#555;
+        font-size:15px;
+        cursor:pointer;
+        position:relative;
+        transition:transform 0.3s ease;
+    }
+
+    .hint{
+        font-size:12px;
+        color:#777;
+        margin-top:12px;
+    }
+
+    #result{
+        display:none;
+        margin-top:25px;
+    }
+
+    #result h2{
+        color:#ec4c7a;
+        margin-bottom:15px;
+    }
+
+    #result img{
+        width:260px;
+        border-radius:15px;
+        box-shadow:0 10px 25px rgba(0,0,0,0.25);
+    }
+</style>
+</head>
+
+<body>
+
+<!-- 🔥 CHANGE HER IMAGE HERE -->
+<div id="bg-photo" style="background-image:url('valentine.jpg');"></div>
+
+
+
+<div class="card">
+
+   
+
+    <h1>Ayesha will you be my valentine?</h1>
+
+    <div class="buttons">
+        <button id="yes">Yes</button>
+        <button id="no">No</button>
+    </div>
+
+    <div class="hint">"No" seems a bit shy 😳</div>
+
+    <div id="result">
+        <h2>Yay! 💖😂</h2>
+        <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif">
+    </div>
+</div>
+
+<script>
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+    const result = document.getElementById("result");
+    const bgPhoto = document.getElementById("bg-photo");
+
+    let yesScale = 1;
+
+    noBtn.addEventListener("mouseenter", () => {
+        const container = document.querySelector(".card");
+        const cardRect = container.getBoundingClientRect();
+
+        // Random safe position inside card
+        const maxX = cardRect.width - noBtn.offsetWidth - 20;
+        const maxY = cardRect.height - noBtn.offsetHeight - 20;
+
+        const x = Math.random() * maxX - maxX / 2;
+        const y = Math.random() * maxY - maxY / 2;
+
+        noBtn.style.transform = `translate(${x}px, ${y}px)`;
+
+        // YES grows
+        yesScale += 0.12;
+        yesBtn.style.transform = `scale(${yesScale})`;
+    });
+
+    yesBtn.addEventListener("click", () => {
+        document.querySelector(".buttons").style.display = "none";
+        document.querySelector(".hint").style.display = "none";
+        result.style.display = "block";
+
+        // Show background image
+        bgPhoto.style.opacity = "0.86";
+    });
+</script>
+
+
+</body>
+</html>
